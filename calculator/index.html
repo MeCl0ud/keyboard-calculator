@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Keyboard-Only Calculator</title>
+    <link rel="stylesheet" href="cal.css">
+</head>
+<body>
+
+   
+     
+    <input type="text" id="display" disabled placeholder="Calculator" style="width: 160px; text-align: right;">
+
+    <script>
+        function appendCharacter(char) {
+            document.getElementById('display').value += char;
+        }
+
+        function clearDisplay() {
+            document.getElementById('display').value = '';
+        }
+
+        function deleteLast() {
+            let display = document.getElementById('display');
+            display.value = display.value.slice(0, -1);
+        }
+
+        function calculateResult() {
+            try {
+                document.getElementById('display').value = eval(document.getElementById('display').value);
+            } catch (e) {
+                document.getElementById('display').value = 'Error';
+            }
+        }
+
+        
+        document.addEventListener('keydown', function(event) {
+            let key = event.key;
+
+          
+            if ((key >= '0' && key <= '9') || ['+', '-', '*', '/', '.'].includes(key)) {
+                appendCharacter(key);
+            }
+            else if (key === 'Enter') {
+                calculateResult();
+            }
+            
+            else if (key === 'Backspace') {
+                deleteLast();
+            }
+           
+            else if (key === ' ') {
+                clearDisplay();
+            }
+        });
+    </script>
+
+</body>
+</html>
